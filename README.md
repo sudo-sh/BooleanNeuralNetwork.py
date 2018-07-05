@@ -1,12 +1,13 @@
-#The ReadME
+# The ReadME
 
-##boolean_neural_network.py
 
-###This repository contains the python implementation Boolean Neural Networks
+## boolean_neural_network.py
 
-###["Implementation of Kohut R et.al Boolean Neural Network in Python"](https://pdfs.semanticscholar.org/3836/1c966b4c7c1a4700769c3debf55398ddf471.pdf)
+### This repository contains the python implementation Boolean Neural Networks
 
-##Description of the Paper
+### ["Implementation of Kohut R et.al Boolean Neural Network in Python"](https://pdfs.semanticscholar.org/3836/1c966b4c7c1a4700769c3debf55398ddf471.pdf)
+
+## Description of the Paper
 
 The discussion is centered around a new neuron (Boolean Neuron) that in the neural network architecture can realise various set of Boolean Functions. The learning algorithm is based on sequential learning. 
 
@@ -14,7 +15,8 @@ The discussion is centered around a new neuron (Boolean Neuron) that in the neur
 
 The neural network model supports only a single hidden layer, requires entire truth table for training, and works fine with **multi-output functions**. The model fails to utilise the integral functionality of the neural network and ends up in more of an representation model similar to BDDs, AIGs etc. However, it helps to realise the important **intermediate logic** function in the representation.
 
-##How to run?
+## How to run?
+
 ```bash
 >git clone <url>
 >cd boolean_neural_network
