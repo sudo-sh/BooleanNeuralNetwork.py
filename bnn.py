@@ -9,31 +9,70 @@ import sys
 import numpy as np
 import math
 
+#Convert Nx and Ny to Xommand Line Arguments
+# Nx=2 #Number of Inputs#####################################################################
+# Ny=7 #Number of Outputs####################################################################
+
+
+
+
+
+def evaluate(K_mat,am_mat,Nx,Ny,out,layers):
+
+	print 'The Original A Matrix',out
+	# print layers
+	for i in range(Nx,Nx+Ny):
+
+		for j in range(0,2**Nx):
+			temp_xor=np.logical_and(K_mat[j,0],am_mat[0,i])
+			for z in range(1,layers):
+				temp_xor=np.logical_xor(temp_xor,(np.logical_and(K_mat[j,z],am_mat[z,i])))
+
+			out[j,i]=temp_xor
+			print temp_xor
+
+
+	print 'The Evaluated A Matrix'
+	print  out
+
+	# return out
+
+
+
 #Modular Code.
 
-Nx=2 #Number of Inputs#####################################################################
-Ny=7 #Number of Outputs####################################################################
 
 
-dataset=np.zeros(shape=(Nx**2,(Nx+Ny))) # The A matrix
 
 
 #The training set is the Nx * (Nx+Ny) Matrix
 
 #input using a text file.
 
-if(len(sys.argv)==2):
+if(len(sys.argv)==4):
 	print 'Input file is :', sys.argv[1]
+	print  'Inputs:',sys.argv[2]
+	print  'Outputs',sys.argv[3]
 else:
-	print 'Enter only one Argument i.e the input file name and change the Input and Output Correspondingly in the script'
+	print 'Enter only one Argument i.e the input file name, Input and Output respectively'
 	exit(-1)
 
+
+Nx=int(sys.argv[2])
+Ny=int(sys.argv[3])
+
+dataset=np.zeros(shape=(2**Nx,(Nx+Ny))) # The A matrix
+
+A=np.zeros(shape=(2**Nx,(Nx+Ny)))
+out=np.zeros(shape=(2**Nx,(Nx+Ny)))
 
 file=open(sys.argv[1],"r")
 
 for i in range(0,Nx**2):
 	line=file .readline()
 	dataset[i]=line.split(",")
+	A[i]=dataset[i]
+	out[i]=dataset[i]
 
 #Extracting Data from the file assumming that the Data are seperated by ','
 
@@ -43,11 +82,11 @@ print dataset
 
 #Define the matrixes required in the Algorithm
 
-A=np.zeros(shape=(Nx**2,(Nx+Ny)))
-D=np.zeros(shape=(Nx**2,1))
-K=np.zeros(shape=(Nx**2,1))
 
-K_mat=np.zeros(shape=(Nx**2,1))
+D=np.zeros(shape=(2**Nx,1))
+K=np.zeros(shape=(2**Nx,1))
+
+K_mat=np.zeros(shape=(2**Nx,1))
 
 # weights=np.array([])
 # am_mat=np.array([])
@@ -57,7 +96,10 @@ am=np.zeros(shape=(1,(Nx+Ny)))
 am_mat=np.zeros(shape=(1,(Nx+Ny)))
 
 
-A=dataset
+# A=dataset
+# out=dataset
+
+print 'The dataset copy',out
 
 iteration=0
 
@@ -76,7 +118,7 @@ while (True): #Exit When all the Zeros in the D matrix becomes 0
 
 
 
-	for i in range(0,(Nx**2)):
+	for i in range(0,(2**Nx)):
 		temp_or=np.zeros(shape=(1,1));
 
 		for j in range(0,(Nx+Ny)):
@@ -89,7 +131,7 @@ while (True): #Exit When all the Zeros in the D matrix becomes 0
 
 	#Check here if the D Matrix is all 0.
 	zero_count=0;
-	for i in range(0,(Nx**2)):
+	for i in range(0,(2**Nx)):
 		if(D[i,0]==0):
 			zero_count=zero_count+1;
 
@@ -107,7 +149,8 @@ while (True): #Exit When all the Zeros in the D matrix becomes 0
 		print K_mat
 		print 'The Am Matrix am1, am2..... in rows'
 		print am_mat
-
+		# print dataset
+		# print out
 		break
 
 
@@ -116,7 +159,7 @@ while (True): #Exit When all the Zeros in the D matrix becomes 0
 
 	index1=0
 
-	for i in range(0,(Nx**2)):
+	for i in range(0,(2**Nx)):
 		if(D[i,0]==1):
 			break
 		else:
@@ -126,7 +169,7 @@ while (True): #Exit When all the Zeros in the D matrix becomes 0
 	am[0]=A[index1]
 
 	#Now compute K
-	for i in range(0,(Nx**2)):
+	for i in range(0,(2**Nx)):
 		temp_or=np.zeros(shape=(1,1));
 		temp_and=np.zeros(shape=(1,1));
 
@@ -143,7 +186,7 @@ while (True): #Exit When all the Zeros in the D matrix becomes 0
 	# We just need to update the matrix A
 
 
-	for i in range(0,(Nx**2)):
+	for i in range(0,(2**Nx)):
 		#temp_or=0;
 
 		for j in range(0,(Nx+Ny)):
@@ -156,6 +199,12 @@ while (True): #Exit When all the Zeros in the D matrix becomes 0
 
 	#Now since the A is updated just store the Weights and Am of this iteration
 	
+# evaluate(K_mat,am_mat,Nx,Ny,out,layers=(iteration-1))
+
+
+
+
+
 
 
 
