@@ -24,7 +24,7 @@ The neural network model supports only a single hidden layer, requires entire tr
 
 
 ```
-##Conclusion 
+## Conclusion 
 
 However, this is a very quick implementation and can be modified easilty accoeding to the use.
 
